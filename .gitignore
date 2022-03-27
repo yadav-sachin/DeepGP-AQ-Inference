@@ -1,7 +1,7 @@
 preprocessing/*csv.gz
-data/beijing-18/
+# data/beijing-18/
 logs/
 AAAI22/
 stat_gp_cat/final_models
 # polire/
-data/
+# data/
