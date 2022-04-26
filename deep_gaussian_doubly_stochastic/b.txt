@@ -1,3 +1,0 @@
-1
-0
-python doubly_stochastic.py --num_inducing 25 --lr 0.1 --epochs 1 --samples 3 --fold 2
