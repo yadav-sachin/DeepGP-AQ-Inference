@@ -1,0 +1,179 @@
+Iter 1/500 - Loss: 0.784 noise: 0.693
+#####0
+RMSE: 0.09658464789390564
+MSLL: 0.7481027841567993
+NLPD: 0.7409765124320984
+coverage error: 0.050000011920928955
+Iter 2/500 - Loss: 0.743 noise: 0.644
+Iter 3/500 - Loss: 0.700 noise: 0.598
+Iter 4/500 - Loss: 0.660 noise: 0.554
+Iter 5/500 - Loss: 0.619 noise: 0.513
+Iter 6/500 - Loss: 0.576 noise: 0.474
+Iter 7/500 - Loss: 0.535 noise: 0.437
+Iter 8/500 - Loss: 0.494 noise: 0.402
+Iter 9/500 - Loss: 0.452 noise: 0.370
+Iter 10/500 - Loss: 0.409 noise: 0.340
+Iter 11/500 - Loss: 0.366 noise: 0.312
+#####10
+RMSE: 0.09663073718547821
+MSLL: 0.3080580234527588
+NLPD: 0.3151422441005707
+coverage error: 0.050000011920928955
+Iter 12/500 - Loss: 0.323 noise: 0.285
+Iter 13/500 - Loss: 0.280 noise: 0.261
+Iter 14/500 - Loss: 0.236 noise: 0.239
+Iter 15/500 - Loss: 0.192 noise: 0.218
+Iter 16/500 - Loss: 0.148 noise: 0.198
+Iter 17/500 - Loss: 0.103 noise: 0.181
+Iter 18/500 - Loss: 0.058 noise: 0.164
+Iter 19/500 - Loss: 0.014 noise: 0.149
+Iter 20/500 - Loss: -0.031 noise: 0.136
+Iter 21/500 - Loss: -0.076 noise: 0.123
+#####20
+RMSE: 0.09659354388713837
+MSLL: -0.15123704075813293
+NLPD: -0.13122941553592682
+coverage error: 0.050000011920928955
+Iter 22/500 - Loss: -0.120 noise: 0.112
+Iter 23/500 - Loss: -0.164 noise: 0.101
+Iter 24/500 - Loss: -0.209 noise: 0.092
+Iter 25/500 - Loss: -0.253 noise: 0.083
+Iter 26/500 - Loss: -0.296 noise: 0.075
+Iter 27/500 - Loss: -0.339 noise: 0.068
+Iter 28/500 - Loss: -0.381 noise: 0.062
+Iter 29/500 - Loss: -0.423 noise: 0.056
+Iter 30/500 - Loss: -0.463 noise: 0.051
+Iter 31/500 - Loss: -0.503 noise: 0.046
+#####30
+RMSE: 0.09554672241210938
+MSLL: -0.6112684607505798
+NLPD: -0.5586689114570618
+coverage error: 0.04849398136138916
+Iter 32/500 - Loss: -0.541 noise: 0.042
+Iter 33/500 - Loss: -0.578 noise: 0.038
+Iter 34/500 - Loss: -0.615 noise: 0.034
+Iter 35/500 - Loss: -0.649 noise: 0.031
+Iter 36/500 - Loss: -0.682 noise: 0.028
+Iter 37/500 - Loss: -0.713 noise: 0.026
+Iter 38/500 - Loss: -0.742 noise: 0.023
+Iter 39/500 - Loss: -0.770 noise: 0.021
+Iter 40/500 - Loss: -0.795 noise: 0.019
+Iter 41/500 - Loss: -0.818 noise: 0.018
+#####40
+RMSE: 0.0929848775267601
+MSLL: -0.994290292263031
+NLPD: -0.8692965507507324
+coverage error: 0.03765058517456055
+Iter 42/500 - Loss: -0.841 noise: 0.016
+Iter 43/500 - Loss: -0.861 noise: 0.015
+Iter 44/500 - Loss: -0.882 noise: 0.014
+Iter 45/500 - Loss: -0.900 noise: 0.013
+Iter 46/500 - Loss: -0.921 noise: 0.012
+Iter 47/500 - Loss: -0.945 noise: 0.011
+Iter 48/500 - Loss: -0.965 noise: 0.010
+Iter 49/500 - Loss: -1.010 noise: 0.010
+Iter 50/500 - Loss: -0.988 noise: 0.009
+Iter 51/500 - Loss: -1.005 noise: 0.008
+#####50
+RMSE: 0.08713003993034363
+MSLL: -1.0245192050933838
+NLPD: -0.9571030139923096
+coverage error: 0.031325340270996094
+Iter 52/500 - Loss: -0.926 noise: 0.008
+Iter 53/500 - Loss: -0.896 noise: 0.007
+Iter 54/500 - Loss: -0.777 noise: 0.007
+Iter 55/500 - Loss: -0.651 noise: 0.006
+Iter 56/500 - Loss: -0.612 noise: 0.006
+Iter 57/500 - Loss: -0.502 noise: 0.006
+Iter 58/500 - Loss: -0.356 noise: 0.005
+Iter 59/500 - Loss: -0.350 noise: 0.005
+Iter 60/500 - Loss: -0.292 noise: 0.005
+Iter 61/500 - Loss: -0.190 noise: 0.005
+#####60
+RMSE: 0.0926666334271431
+MSLL: -0.2521200478076935
+NLPD: -0.6873493790626526
+coverage error: 0.04939758777618408
+Iter 62/500 - Loss: -0.244 noise: 0.005
+Iter 63/500 - Loss: -0.214 noise: 0.005
+Iter 64/500 - Loss: -0.225 noise: 0.005
+Iter 65/500 - Loss: -0.249 noise: 0.004
+Iter 66/500 - Loss: -0.260 noise: 0.004
+Iter 67/500 - Loss: -0.295 noise: 0.004
+Iter 68/500 - Loss: -0.319 noise: 0.004
+Iter 69/500 - Loss: -0.330 noise: 0.004
+Iter 70/500 - Loss: -0.368 noise: 0.004
+Iter 71/500 - Loss: -0.352 noise: 0.004
+#####70
+RMSE: 0.08975239098072052
+MSLL: -0.361441433429718
+NLPD: -0.7360427975654602
+coverage error: 0.04789155721664429
+Iter 72/500 - Loss: -0.360 noise: 0.004
+Iter 73/500 - Loss: -0.317 noise: 0.004
+Iter 74/500 - Loss: -0.327 noise: 0.004
+Iter 75/500 - Loss: -0.338 noise: 0.004
+Iter 76/500 - Loss: -0.304 noise: 0.004
+Iter 77/500 - Loss: -0.307 noise: 0.004
+Iter 78/500 - Loss: -0.332 noise: 0.005
+Iter 79/500 - Loss: -0.361 noise: 0.005
+Iter 80/500 - Loss: -0.386 noise: 0.005
+Iter 81/500 - Loss: -0.390 noise: 0.005
+#####80
+RMSE: 0.08945558965206146
+MSLL: -0.44722187519073486
+NLPD: -0.7789256572723389
+coverage error: 0.04728919267654419
+Iter 82/500 - Loss: -0.407 noise: 0.005
+Iter 83/500 - Loss: -0.492 noise: 0.005
+Iter 84/500 - Loss: -0.485 noise: 0.005
+Iter 85/500 - Loss: -0.534 noise: 0.005
+Iter 86/500 - Loss: -0.533 noise: 0.005
+Iter 87/500 - Loss: -0.539 noise: 0.005
+Iter 88/500 - Loss: -0.548 noise: 0.005
+Iter 89/500 - Loss: -0.573 noise: 0.005
+Iter 90/500 - Loss: -0.515 noise: 0.005
+Iter 91/500 - Loss: -0.576 noise: 0.005
+#####90
+RMSE: 0.08865475654602051
+MSLL: -0.5613104701042175
+NLPD: -0.8132856488227844
+coverage error: 0.04638552665710449
+Iter 92/500 - Loss: -0.602 noise: 0.006
+Iter 93/500 - Loss: -0.578 noise: 0.006
+Iter 94/500 - Loss: -0.569 noise: 0.006
+Iter 95/500 - Loss: -0.617 noise: 0.006
+Iter 96/500 - Loss: -0.610 noise: 0.006
+Iter 97/500 - Loss: -0.638 noise: 0.006
+Iter 98/500 - Loss: -0.685 noise: 0.006
+Iter 99/500 - Loss: -0.704 noise: 0.006
+Iter 100/500 - Loss: -0.721 noise: 0.006
+Iter 101/500 - Loss: -0.692 noise: 0.006
+#####100
+RMSE: 0.08868217468261719
+MSLL: -0.6519604921340942
+NLPD: -0.8310160040855408
+coverage error: 0.045783162117004395
+Iter 102/500 - Loss: -0.681 noise: 0.006
+Iter 103/500 - Loss: -0.690 noise: 0.006
+Iter 104/500 - Loss: -0.644 noise: 0.006
+Iter 105/500 - Loss: -0.647 noise: 0.006
+Iter 106/500 - Loss: -0.667 noise: 0.006
+Iter 107/500 - Loss: -0.675 noise: 0.006
+Iter 108/500 - Loss: -0.713 noise: 0.006
+Iter 109/500 - Loss: -0.715 noise: 0.006
+Iter 110/500 - Loss: -0.674 noise: 0.006
+Iter 111/500 - Loss: -0.702 noise: 0.006
+#####110
+RMSE: 0.08822227269411087
+MSLL: -0.7135310769081116
+NLPD: -0.8506971001625061
+coverage error: 0.043975889682769775
+Iter 112/500 - Loss: -0.705 noise: 0.006
+Iter 113/500 - Loss: -0.713 noise: 0.006
+Iter 114/500 - Loss: -0.694 noise: 0.006
+Iter 115/500 - Loss: -0.714 noise: 0.006
+Iter 116/500 - Loss: -0.701 noise: 0.006
+Iter 117/500 - Loss: -0.691 noise: 0.006
+Iter 118/500 - Loss: -0.693 noise: 0.006
+Iter 119/500 - Loss: -0.682 noise: 0.006

@@ -1,0 +1,295 @@
+72
+33.109652672632734
+33.0915073402307
+34.214544462050924
+36.48325959287628
+32.28424261043034
+35.498719255367476
+32.65072435835663
+34.465767889490145
+41.24953135973854
+38.69748310414483
+30.18536257317892
+32.956340342836896
+31.779862543028006
+36.13041940849282
+31.55359893758034
+37.042313198312456
+34.499424700526525
+45.716402088066076
+29.47422436498324
+41.929689884399934
+31.65301808332126
+38.75537788643547
+30.102740517107637
+30.67049118404315
+41.24902290023764
+33.33515601015935
+29.215951743922147
+34.00786952767633
+32.67105548409033
+33.3972256352396
+31.606934322267843
+29.43343772074109
+28.73465306932335
+30.712124837791276
+32.096409820928834
+32.63432992344366
+29.923363871510645
+30.552585611538085
+39.491705135652836
+37.65787317921336
+34.58866240088424
+41.725257659146166
+39.29364130712949
+36.25588838683636
+29.944772195368515
+29.12051959757831
+64
+python simple.py --num_inducing 40 --lr 0.01 --epochs 500 --num_layers 50 --fold 0
+ERROR list index out of range
+/home/sachin.yadav/DeepGP-ML-Project/deep_gp_simple
+
+{'epoch': 500, 'lr': 0.01, 'num_inducing': 40, 'num_layer': 50, 'iter_id': 64, 'fold': 0}
+24
+python simple.py --num_inducing 40 --lr 0.01 --epochs 100 --num_layers 15 --fold 0
+9
+python simple.py --num_inducing 40 --lr 0.01 --epochs 50 --num_layers 30 --fold 1
+42
+python simple.py --num_inducing 40 --lr 0.01 --epochs 250 --num_layers 15 --fold 0
+16
+python simple.py --num_inducing 40 --lr 0.05 --epochs 50 --num_layers 50 --fold 0
+67
+python simple.py --num_inducing 40 --lr 0.05 --epochs 500 --num_layers 15 --fold 1
+49
+python simple.py --num_inducing 40 --lr 0.05 --epochs 250 --num_layers 15 --fold 1
+55
+python simple.py --num_inducing 40 --lr 0.1 --epochs 500 --num_layers 15 --fold 1
+25
+python simple.py --num_inducing 40 --lr 0.01 --epochs 100 --num_layers 15 --fold 1
+29
+python simple.py --num_inducing 40 --lr 0.01 --epochs 100 --num_layers 50 --fold 1
+ERROR list index out of range
+/home/sachin.yadav/DeepGP-ML-Project/deep_gp_simple
+
+{'epoch': 100, 'lr': 0.01, 'num_inducing': 40, 'num_layer': 50, 'iter_id': 29, 'fold': 1}
+13
+python simple.py --num_inducing 40 --lr 0.05 --epochs 50 --num_layers 15 --fold 1
+61
+python simple.py --num_inducing 40 --lr 0.01 --epochs 500 --num_layers 15 --fold 1
+52
+python simple.py --num_inducing 40 --lr 0.05 --epochs 250 --num_layers 50 --fold 0
+ERROR list index out of range
+/home/sachin.yadav/DeepGP-ML-Project/deep_gp_simple
+
+{'epoch': 250, 'lr': 0.05, 'num_inducing': 40, 'num_layer': 50, 'iter_id': 52, 'fold': 0}
+54
+python simple.py --num_inducing 40 --lr 0.1 --epochs 500 --num_layers 15 --fold 0
+ERROR list index out of range
+/home/sachin.yadav/DeepGP-ML-Project/deep_gp_simple
+
+{'epoch': 500, 'lr': 0.1, 'num_inducing': 40, 'num_layer': 15, 'iter_id': 54, 'fold': 0}
+0
+python simple.py --num_inducing 40 --lr 0.1 --epochs 50 --num_layers 15 --fold 0
+ERROR list index out of range
+/home/sachin.yadav/DeepGP-ML-Project/deep_gp_simple
+
+{'epoch': 50, 'lr': 0.1, 'num_inducing': 40, 'num_layer': 15, 'iter_id': 0, 'fold': 0}
+19
+python simple.py --num_inducing 40 --lr 0.1 --epochs 100 --num_layers 15 --fold 1
+65
+python simple.py --num_inducing 40 --lr 0.01 --epochs 500 --num_layers 50 --fold 1
+ERROR list index out of range
+/home/sachin.yadav/DeepGP-ML-Project/deep_gp_simple
+
+{'epoch': 500, 'lr': 0.01, 'num_inducing': 40, 'num_layer': 50, 'iter_id': 65, 'fold': 1}
+28
+python simple.py --num_inducing 40 --lr 0.01 --epochs 100 --num_layers 50 --fold 0
+34
+python simple.py --num_inducing 40 --lr 0.05 --epochs 100 --num_layers 50 --fold 0
+14
+python simple.py --num_inducing 40 --lr 0.05 --epochs 50 --num_layers 30 --fold 0
+6
+python simple.py --num_inducing 40 --lr 0.01 --epochs 50 --num_layers 15 --fold 0
+66
+python simple.py --num_inducing 40 --lr 0.05 --epochs 500 --num_layers 15 --fold 0
+ERROR list index out of range
+/home/sachin.yadav/DeepGP-ML-Project/deep_gp_simple
+
+{'epoch': 500, 'lr': 0.05, 'num_inducing': 40, 'num_layer': 15, 'iter_id': 66, 'fold': 0}
+70
+python simple.py --num_inducing 40 --lr 0.05 --epochs 500 --num_layers 50 --fold 0
+ERROR list index out of range
+/home/sachin.yadav/DeepGP-ML-Project/deep_gp_simple
+
+{'epoch': 500, 'lr': 0.05, 'num_inducing': 40, 'num_layer': 50, 'iter_id': 70, 'fold': 0}
+15
+python simple.py --num_inducing 40 --lr 0.05 --epochs 50 --num_layers 30 --fold 1
+22
+python simple.py --num_inducing 40 --lr 0.1 --epochs 100 --num_layers 50 --fold 0
+ERROR list index out of range
+/home/sachin.yadav/DeepGP-ML-Project/deep_gp_simple
+
+{'epoch': 100, 'lr': 0.1, 'num_inducing': 40, 'num_layer': 50, 'iter_id': 22, 'fold': 0}
+35
+python simple.py --num_inducing 40 --lr 0.05 --epochs 100 --num_layers 50 --fold 1
+37
+python simple.py --num_inducing 40 --lr 0.1 --epochs 250 --num_layers 15 --fold 1
+27
+python simple.py --num_inducing 40 --lr 0.01 --epochs 100 --num_layers 30 --fold 1
+5
+python simple.py --num_inducing 40 --lr 0.1 --epochs 50 --num_layers 50 --fold 1
+62
+python simple.py --num_inducing 40 --lr 0.01 --epochs 500 --num_layers 30 --fold 0
+ERROR list index out of range
+/home/sachin.yadav/DeepGP-ML-Project/deep_gp_simple
+
+{'epoch': 500, 'lr': 0.01, 'num_inducing': 40, 'num_layer': 30, 'iter_id': 62, 'fold': 0}
+21
+python simple.py --num_inducing 40 --lr 0.1 --epochs 100 --num_layers 30 --fold 1
+26
+python simple.py --num_inducing 40 --lr 0.01 --epochs 100 --num_layers 30 --fold 0
+ERROR list index out of range
+/home/sachin.yadav/DeepGP-ML-Project/deep_gp_simple
+
+{'epoch': 100, 'lr': 0.01, 'num_inducing': 40, 'num_layer': 30, 'iter_id': 26, 'fold': 0}
+71
+python simple.py --num_inducing 40 --lr 0.05 --epochs 500 --num_layers 50 --fold 1
+ERROR list index out of range
+/home/sachin.yadav/DeepGP-ML-Project/deep_gp_simple
+
+{'epoch': 500, 'lr': 0.05, 'num_inducing': 40, 'num_layer': 50, 'iter_id': 71, 'fold': 1}
+39
+python simple.py --num_inducing 40 --lr 0.1 --epochs 250 --num_layers 30 --fold 1
+ERROR list index out of range
+/home/sachin.yadav/DeepGP-ML-Project/deep_gp_simple
+
+{'epoch': 250, 'lr': 0.1, 'num_inducing': 40, 'num_layer': 30, 'iter_id': 39, 'fold': 1}
+51
+python simple.py --num_inducing 40 --lr 0.05 --epochs 250 --num_layers 30 --fold 1
+58
+python simple.py --num_inducing 40 --lr 0.1 --epochs 500 --num_layers 50 --fold 0
+ERROR list index out of range
+/home/sachin.yadav/DeepGP-ML-Project/deep_gp_simple
+
+{'epoch': 500, 'lr': 0.1, 'num_inducing': 40, 'num_layer': 50, 'iter_id': 58, 'fold': 0}
+48
+python simple.py --num_inducing 40 --lr 0.05 --epochs 250 --num_layers 15 --fold 0
+33
+python simple.py --num_inducing 40 --lr 0.05 --epochs 100 --num_layers 30 --fold 1
+46
+python simple.py --num_inducing 40 --lr 0.01 --epochs 250 --num_layers 50 --fold 0
+47
+python simple.py --num_inducing 40 --lr 0.01 --epochs 250 --num_layers 50 --fold 1
+ERROR list index out of range
+/home/sachin.yadav/DeepGP-ML-Project/deep_gp_simple
+
+{'epoch': 250, 'lr': 0.01, 'num_inducing': 40, 'num_layer': 50, 'iter_id': 47, 'fold': 1}
+12
+python simple.py --num_inducing 40 --lr 0.05 --epochs 50 --num_layers 15 --fold 0
+20
+python simple.py --num_inducing 40 --lr 0.1 --epochs 100 --num_layers 30 --fold 0
+7
+python simple.py --num_inducing 40 --lr 0.01 --epochs 50 --num_layers 15 --fold 1
+40
+python simple.py --num_inducing 40 --lr 0.1 --epochs 250 --num_layers 50 --fold 0
+ERROR list index out of range
+/home/sachin.yadav/DeepGP-ML-Project/deep_gp_simple
+
+{'epoch': 250, 'lr': 0.1, 'num_inducing': 40, 'num_layer': 50, 'iter_id': 40, 'fold': 0}
+18
+python simple.py --num_inducing 40 --lr 0.1 --epochs 100 --num_layers 15 --fold 0
+ERROR list index out of range
+/home/sachin.yadav/DeepGP-ML-Project/deep_gp_simple
+
+{'epoch': 100, 'lr': 0.1, 'num_inducing': 40, 'num_layer': 15, 'iter_id': 18, 'fold': 0}
+32
+python simple.py --num_inducing 40 --lr 0.05 --epochs 100 --num_layers 30 --fold 0
+ERROR list index out of range
+/home/sachin.yadav/DeepGP-ML-Project/deep_gp_simple
+
+{'epoch': 100, 'lr': 0.05, 'num_inducing': 40, 'num_layer': 30, 'iter_id': 32, 'fold': 0}
+23
+python simple.py --num_inducing 40 --lr 0.1 --epochs 100 --num_layers 50 --fold 1
+ERROR list index out of range
+/home/sachin.yadav/DeepGP-ML-Project/deep_gp_simple
+
+{'epoch': 100, 'lr': 0.1, 'num_inducing': 40, 'num_layer': 50, 'iter_id': 23, 'fold': 1}
+17
+python simple.py --num_inducing 40 --lr 0.05 --epochs 50 --num_layers 50 --fold 1
+68
+python simple.py --num_inducing 40 --lr 0.05 --epochs 500 --num_layers 30 --fold 0
+31
+python simple.py --num_inducing 40 --lr 0.05 --epochs 100 --num_layers 15 --fold 1
+36
+python simple.py --num_inducing 40 --lr 0.1 --epochs 250 --num_layers 15 --fold 0
+ERROR list index out of range
+/home/sachin.yadav/DeepGP-ML-Project/deep_gp_simple
+
+{'epoch': 250, 'lr': 0.1, 'num_inducing': 40, 'num_layer': 15, 'iter_id': 36, 'fold': 0}
+10
+python simple.py --num_inducing 40 --lr 0.01 --epochs 50 --num_layers 50 --fold 0
+45
+python simple.py --num_inducing 40 --lr 0.01 --epochs 250 --num_layers 30 --fold 1
+ERROR list index out of range
+/home/sachin.yadav/DeepGP-ML-Project/deep_gp_simple
+
+{'epoch': 250, 'lr': 0.01, 'num_inducing': 40, 'num_layer': 30, 'iter_id': 45, 'fold': 1}
+50
+python simple.py --num_inducing 40 --lr 0.05 --epochs 250 --num_layers 30 --fold 0
+ERROR list index out of range
+/home/sachin.yadav/DeepGP-ML-Project/deep_gp_simple
+
+{'epoch': 250, 'lr': 0.05, 'num_inducing': 40, 'num_layer': 30, 'iter_id': 50, 'fold': 0}
+8
+python simple.py --num_inducing 40 --lr 0.01 --epochs 50 --num_layers 30 --fold 0
+30
+python simple.py --num_inducing 40 --lr 0.05 --epochs 100 --num_layers 15 --fold 0
+44
+python simple.py --num_inducing 40 --lr 0.01 --epochs 250 --num_layers 30 --fold 0
+63
+python simple.py --num_inducing 40 --lr 0.01 --epochs 500 --num_layers 30 --fold 1
+11
+python simple.py --num_inducing 40 --lr 0.01 --epochs 50 --num_layers 50 --fold 1
+53
+python simple.py --num_inducing 40 --lr 0.05 --epochs 250 --num_layers 50 --fold 1
+38
+python simple.py --num_inducing 40 --lr 0.1 --epochs 250 --num_layers 30 --fold 0
+3
+python simple.py --num_inducing 40 --lr 0.1 --epochs 50 --num_layers 30 --fold 1
+60
+python simple.py --num_inducing 40 --lr 0.01 --epochs 500 --num_layers 15 --fold 0
+4
+python simple.py --num_inducing 40 --lr 0.1 --epochs 50 --num_layers 50 --fold 0
+57
+python simple.py --num_inducing 40 --lr 0.1 --epochs 500 --num_layers 30 --fold 1
+ERROR list index out of range
+/home/sachin.yadav/DeepGP-ML-Project/deep_gp_simple
+
+{'epoch': 500, 'lr': 0.1, 'num_inducing': 40, 'num_layer': 30, 'iter_id': 57, 'fold': 1}
+2
+python simple.py --num_inducing 40 --lr 0.1 --epochs 50 --num_layers 30 --fold 0
+41
+python simple.py --num_inducing 40 --lr 0.1 --epochs 250 --num_layers 50 --fold 1
+ERROR list index out of range
+/home/sachin.yadav/DeepGP-ML-Project/deep_gp_simple
+
+{'epoch': 250, 'lr': 0.1, 'num_inducing': 40, 'num_layer': 50, 'iter_id': 41, 'fold': 1}
+56
+python simple.py --num_inducing 40 --lr 0.1 --epochs 500 --num_layers 30 --fold 0
+ERROR list index out of range
+/home/sachin.yadav/DeepGP-ML-Project/deep_gp_simple
+
+{'epoch': 500, 'lr': 0.1, 'num_inducing': 40, 'num_layer': 30, 'iter_id': 56, 'fold': 0}
+69
+python simple.py --num_inducing 40 --lr 0.05 --epochs 500 --num_layers 30 --fold 1
+43
+python simple.py --num_inducing 40 --lr 0.01 --epochs 250 --num_layers 15 --fold 1
+ERROR list index out of range
+/home/sachin.yadav/DeepGP-ML-Project/deep_gp_simple
+
+{'epoch': 250, 'lr': 0.01, 'num_inducing': 40, 'num_layer': 15, 'iter_id': 43, 'fold': 1}
+1
+python simple.py --num_inducing 40 --lr 0.1 --epochs 50 --num_layers 15 --fold 1
+59
+python simple.py --num_inducing 40 --lr 0.1 --epochs 500 --num_layers 50 --fold 1

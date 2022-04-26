@@ -1,0 +1,7 @@
+3
+0
+python doubly_stochastic.py --num_inducing 150 --lr 0.05 --epochs 300 --samples 7 --fold 0
+2
+python doubly_stochastic.py --num_inducing 150 --lr 0.05 --epochs 300 --samples 7 --fold 2
+1
+python doubly_stochastic.py --num_inducing 150 --lr 0.05 --epochs 300 --samples 7 --fold 1
