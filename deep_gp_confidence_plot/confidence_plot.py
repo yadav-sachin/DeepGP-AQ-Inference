@@ -28,55 +28,92 @@ import pandas as pd
 from scipy.io import loadmat
 import numpy as np
 from math import floor
+
+
 class Config:
     device = "cpu"
+
+
 device = torch.device(Config.device)
 
 # %%
 class Config:
-    num_inducing=100
+    num_inducing = 100
     fold = 1
-    lr=0.05
+    lr = 0.05
     epochs = 500
     num_samples = 7
+
 
 # %%
 from sklearn.preprocessing import StandardScaler
 import os
+
 script_dir = os.path.dirname(__file__)
 
-def return_data(fold,month,with_scaling, station_id = None):
-  train_input = pd.read_csv(script_dir + '/../data/beijing-18/time_feature/'+'/fold'+str(fold)+'/train_data_'+month+'_nsgp.csv.gz')
-  test_input = pd.read_csv(script_dir + '/../data/beijing-18/time_feature'+'/fold'+str(fold)+'/test_data_'+month+'_nsgp.csv.gz')
-  if station_id != None:
-    test_input = test_input[test_input['station_id'] == station_id]
-  #     test_input = test_input[test_input['station_id' == ]]
-  test_output = np.array(test_input['PM25_Concentration'])
-  train_output = np.array(train_input['PM25_Concentration'])
-  train_input= train_input.drop(['station_id','PM25_Concentration','time','filled'],axis=1)
-  try:
-    test_input= test_input.drop(['PM25_Concentration','station_id','time','filled'],axis=1)
-  except:
-    test_input= test_input.drop(['station_id','time','filled'],axis=1)
-  #     test_output= test_output.drop(['time'],axis=1)
-  if with_scaling:
-    scaler = StandardScaler().fit(train_input)
-    train_input = pd.DataFrame(scaler.transform(train_input),columns=list(train_input.columns))
-    test_input = pd.DataFrame(scaler.transform(test_input),columns=list(test_input.columns))
-  return train_input,train_output,test_input,test_output
+
+def return_data(fold, month, with_scaling, station_id=None):
+    train_input = pd.read_csv(
+        script_dir
+        + "/../data/beijing-18/time_feature/"
+        + "/fold"
+        + str(fold)
+        + "/train_data_"
+        + month
+        + "_nsgp.csv.gz"
+    )
+    test_input = pd.read_csv(
+        script_dir
+        + "/../data/beijing-18/time_feature"
+        + "/fold"
+        + str(fold)
+        + "/test_data_"
+        + month
+        + "_nsgp.csv.gz"
+    )
+    if station_id != None:
+        test_input = test_input[test_input["station_id"] == station_id]
+    #     test_input = test_input[test_input['station_id' == ]]
+    test_output = np.array(test_input["PM25_Concentration"])
+    train_output = np.array(train_input["PM25_Concentration"])
+    train_input = train_input.drop(
+        ["station_id", "PM25_Concentration", "time", "filled"], axis=1
+    )
+    try:
+        test_input = test_input.drop(
+            ["PM25_Concentration", "station_id", "time", "filled"], axis=1
+        )
+    except:
+        test_input = test_input.drop(["station_id", "time", "filled"], axis=1)
+    #     test_output= test_output.drop(['time'],axis=1)
+    if with_scaling:
+        scaler = StandardScaler().fit(train_input)
+        train_input = pd.DataFrame(
+            scaler.transform(train_input), columns=list(train_input.columns)
+        )
+        test_input = pd.DataFrame(
+            scaler.transform(test_input), columns=list(test_input.columns)
+        )
+    return train_input, train_output, test_input, test_output
 
 
 # %%
 for fold in [Config.fold]:
-  train_input,train_output,test_input,test_output = return_data(fold=fold,month='mar',with_scaling=True,station_id=1006)
+    train_input, train_output, test_input, test_output = return_data(
+        fold=fold, month="mar", with_scaling=True, station_id=1006
+    )
 
 from torch.utils.data import TensorDataset, DataLoader
-train_dataset = TensorDataset(torch.tensor(train_input.values).float().to(device), torch.tensor(train_output).float().to(device))
+
+train_dataset = TensorDataset(
+    torch.tensor(train_input.values).float().to(device),
+    torch.tensor(train_output).float().to(device),
+)
 train_loader = DataLoader(train_dataset, batch_size=1024, shuffle=True)
 
 # %%
 class ToyDeepGPHiddenLayer(deep_gps.DeepGPLayer):
-    def __init__(self, input_dims, output_dims, num_inducing=128, mean_type='constant'):
+    def __init__(self, input_dims, output_dims, num_inducing=128, mean_type="constant"):
         if output_dims is None:
             inducing_points = torch.randn(num_inducing, input_dims)
             batch_shape = torch.Size([])
@@ -85,34 +122,34 @@ class ToyDeepGPHiddenLayer(deep_gps.DeepGPLayer):
             batch_shape = torch.Size([output_dims])
 
         variational_distribution = CholeskyVariationalDistribution(
-            num_inducing_points=num_inducing,
-            batch_shape=batch_shape
+            num_inducing_points=num_inducing, batch_shape=batch_shape
         )
 
         variational_strategy = VariationalStrategy(
             self,
             inducing_points,
             variational_distribution,
-            learn_inducing_locations=True
+            learn_inducing_locations=True,
         )
 
-        super(ToyDeepGPHiddenLayer, self).__init__(variational_strategy, input_dims, output_dims)
+        super(ToyDeepGPHiddenLayer, self).__init__(
+            variational_strategy, input_dims, output_dims
+        )
 
-        if mean_type == 'constant':
+        if mean_type == "constant":
             self.mean_module = ConstantMean(batch_shape=batch_shape)
         else:
             self.mean_module = LinearMean(input_dims)
         self.covar_module = ScaleKernel(
             RBFKernel(batch_shape=batch_shape, ard_num_dims=input_dims),
-            batch_shape=batch_shape, ard_num_dims=None
+            batch_shape=batch_shape,
+            ard_num_dims=None,
         )
-
 
     def forward(self, x):
         mean_x = self.mean_module(x)
         covar_x = self.covar_module(x)
         return MultivariateNormal(mean_x, covar_x)
-
 
     def __call__(self, x, *other_inputs, **kwargs):
         """
@@ -125,13 +162,16 @@ class ToyDeepGPHiddenLayer(deep_gps.DeepGPLayer):
                 x = x.rsample()
 
             processed_inputs = [
-                inp.unsqueeze(0).expand(gpytorch.settings.num_likelihood_samples.value(), *inp.shape)
+                inp.unsqueeze(0).expand(
+                    gpytorch.settings.num_likelihood_samples.value(), *inp.shape
+                )
                 for inp in other_inputs
             ]
 
             x = torch.cat([x] + processed_inputs, dim=-1)
 
         return super().__call__(x, are_samples=bool(len(other_inputs)))
+
 
 # %%
 class DeepGP(deep_gps.DeepGP):
@@ -140,25 +180,23 @@ class DeepGP(deep_gps.DeepGP):
         hidden_layer = ToyDeepGPHiddenLayer(
             input_dims=train_x_shape[-1],
             output_dims=12,
-            mean_type='linear',
+            mean_type="linear",
             num_inducing=Config.num_inducing,
         )
 
         second_hidden_layer = ToyDeepGPHiddenLayer(
             input_dims=12,
             output_dims=4,
-            mean_type='linear',
+            mean_type="linear",
             num_inducing=Config.num_inducing,
         )
-
 
         last_layer = ToyDeepGPHiddenLayer(
             input_dims=second_hidden_layer.output_dims,
             output_dims=None,
-            mean_type='constant',
+            mean_type="constant",
             num_inducing=Config.num_inducing,
         )
-
 
         self.hidden_layer = hidden_layer
         self.second_hidden_layer = second_hidden_layer
@@ -180,12 +218,18 @@ class DeepGP(deep_gps.DeepGP):
 
 # %%
 # print(train_input.shape)
-model = DeepGP(train_x_shape = train_input.shape).to(device)
+model = DeepGP(train_x_shape=train_input.shape).to(device)
 num_epochs = Config.epochs
 num_samples = Config.num_samples
-optimizer = torch.optim.Adam([
-    {'params': model.parameters()},], lr=Config.lr)
-mll = DeepApproximateMLL(VariationalELBO(model.likelihood, model, train_input.shape[-2]))
+optimizer = torch.optim.Adam(
+    [
+        {"params": model.parameters()},
+    ],
+    lr=Config.lr,
+)
+mll = DeepApproximateMLL(
+    VariationalELBO(model.likelihood, model, train_input.shape[-2])
+)
 
 epochs_iter = tqdm.tqdm(range(num_epochs), desc="Epoch")
 train_losses = []
@@ -206,29 +250,42 @@ for i in epochs_iter:
 
     if i % 2 == 0:
         model.eval()
-        test_dataset = TensorDataset(torch.tensor(test_input.values).float(), torch.tensor(test_output).float())
+        test_dataset = TensorDataset(
+            torch.tensor(test_input.values).float(), torch.tensor(test_output).float()
+        )
         test_loader = DataLoader(test_dataset, batch_size=1024, shuffle=True)
         preds = model.predict(test_loader)
-        preds_stds = torch.sqrt(preds.variance).T.mean(axis = 1)
-        preds_mean = preds.mean.T.mean(axis = 1)
+        preds_stds = torch.sqrt(preds.variance).T.mean(axis=1)
+        preds_mean = preds.mean.T.mean(axis=1)
         lower_line = preds_mean - 2 * preds_stds
         upper_line = preds_mean + 2 * preds_stds
 
-        plt.rcParams['figure.dpi'] = 150
-        fig = plt.figure(figsize = (18, 8))
-        plt.fill_between(range(len(test_output)), lower_line, upper_line, facecolor='gray', alpha=0.5, label = r"95% confidence")
-        plt.plot(preds_mean, label = r"predicted", linewidth=1.5)
+        plt.rcParams["figure.dpi"] = 150
+        fig = plt.figure(figsize=(18, 8))
+        plt.fill_between(
+            range(len(test_output)),
+            lower_line,
+            upper_line,
+            facecolor="gray",
+            alpha=0.5,
+            label=r"95% confidence",
+        )
+        plt.plot(preds_mean, label=r"predicted", linewidth=1.5)
         y_test = test_output
-        plt.plot(test_output, label = r"actual", linewidth=1.5)
+        plt.plot(test_output, label=r"actual", linewidth=1.5)
         plt.ylabel("PM2.5")
         plt.legend()
         plt.xlabel("Timeline (March 2015)")
-        plt.title("Deep Gaussian Doubly Stochastic Variational Inference \n Station 1006")
+        plt.title(
+            "Deep Gaussian Doubly Stochastic Variational Inference \n Station 1006"
+        )
         plt.savefig(f"deep_variational_station_1006_{i}.png")
         model.train()
 
 # %%
-test_dataset = TensorDataset(torch.tensor(test_input.values).float(), torch.tensor(test_output).float())
+test_dataset = TensorDataset(
+    torch.tensor(test_input.values).float(), torch.tensor(test_output).float()
+)
 test_loader = DataLoader(test_dataset, batch_size=1024, shuffle=True)
 import math
 

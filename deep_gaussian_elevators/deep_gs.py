@@ -22,8 +22,12 @@ from math import floor
 
 # %%
 base_path = os.path.dirname(__file__)
+
+
 class Config:
     device = "cpu"
+
+
 torch.set_num_threads(15)
 
 # %%
@@ -33,10 +37,12 @@ device = torch.device(Config.device)
 # ## Load Dataset
 
 # %%
-data = torch.tensor(loadmat(base_path + "/elevators.mat")["data"], device = device).float()
+data = torch.tensor(
+    loadmat(base_path + "/elevators.mat")["data"], device=device
+).float()
 
 # %% [markdown]
-# Total Points = 16599  
+# Total Points = 16599
 # Number of features = 19
 
 # %% [markdown]
@@ -60,12 +66,13 @@ y_test = y[n_train:].contiguous()
 
 # %%
 from torch.utils.data import TensorDataset, DataLoader
+
 train_dataset = TensorDataset(X_train, y_train)
 train_loader = DataLoader(train_dataset, batch_size=1024, shuffle=True)
 
 # %%
 class ToyDeepGPHiddenLayer(DeepGPLayer):
-    def __init__(self, input_dims, output_dims, num_inducing=128, mean_type='constant'):
+    def __init__(self, input_dims, output_dims, num_inducing=128, mean_type="constant"):
         if output_dims is None:
             inducing_points = torch.randn(num_inducing, input_dims)
             batch_shape = torch.Size([])
@@ -74,34 +81,34 @@ class ToyDeepGPHiddenLayer(DeepGPLayer):
             batch_shape = torch.Size([output_dims])
 
         variational_distribution = CholeskyVariationalDistribution(
-            num_inducing_points=num_inducing,
-            batch_shape=batch_shape
+            num_inducing_points=num_inducing, batch_shape=batch_shape
         )
 
         variational_strategy = VariationalStrategy(
             self,
             inducing_points,
             variational_distribution,
-            learn_inducing_locations=True
+            learn_inducing_locations=True,
         )
 
-        super(ToyDeepGPHiddenLayer, self).__init__(variational_strategy, input_dims, output_dims)
+        super(ToyDeepGPHiddenLayer, self).__init__(
+            variational_strategy, input_dims, output_dims
+        )
 
-        if mean_type == 'constant':
+        if mean_type == "constant":
             self.mean_module = ConstantMean(batch_shape=batch_shape)
         else:
             self.mean_module = LinearMean(input_dims)
         self.covar_module = ScaleKernel(
             RBFKernel(batch_shape=batch_shape, ard_num_dims=input_dims),
-            batch_shape=batch_shape, ard_num_dims=None
+            batch_shape=batch_shape,
+            ard_num_dims=None,
         )
-
 
     def forward(self, x):
         mean_x = self.mean_module(x)
         covar_x = self.covar_module(x)
         return MultivariateNormal(mean_x, covar_x)
-
 
     def __call__(self, x, *other_inputs, **kwargs):
         """
@@ -114,7 +121,9 @@ class ToyDeepGPHiddenLayer(DeepGPLayer):
                 x = x.rsample()
 
             processed_inputs = [
-                inp.unsqueeze(0).expand(gpytorch.settings.num_likelihood_samples.value(), *inp.shape)
+                inp.unsqueeze(0).expand(
+                    gpytorch.settings.num_likelihood_samples.value(), *inp.shape
+                )
                 for inp in other_inputs
             ]
 
@@ -122,31 +131,26 @@ class ToyDeepGPHiddenLayer(DeepGPLayer):
 
         return super().__call__(x, are_samples=bool(len(other_inputs)))
 
+
 # %%
 class DeepGP(DeepGP):
     def __init__(self, train_x_shape):
         hidden_layer = ToyDeepGPHiddenLayer(
-            input_dims=train_x_shape[-1],
-            output_dims=8,
-            mean_type='linear'
+            input_dims=train_x_shape[-1], output_dims=8, mean_type="linear"
         )
 
         second_hidden_layer = ToyDeepGPHiddenLayer(
-            input_dims=8,
-            output_dims=4,
-            mean_type='linear'
+            input_dims=8, output_dims=4, mean_type="linear"
         )
 
         third_hidden_layer = ToyDeepGPHiddenLayer(
-            input_dims=4,
-            output_dims=2,
-            mean_type='linear'
+            input_dims=4, output_dims=2, mean_type="linear"
         )
 
         last_layer = ToyDeepGPHiddenLayer(
             input_dims=third_hidden_layer.output_dims,
             output_dims=None,
-            mean_type='constant'
+            mean_type="constant",
         )
 
         super().__init__()
@@ -181,17 +185,21 @@ class DeepGP(DeepGP):
 
         # return torch.cat(mus, dim=-1), torch.cat(variances, dim=-1), torch.cat(lls, dim=-1)
 
+
 # %%
-model = DeepGP(train_x_shape = X_train.shape).to(device)
+model = DeepGP(train_x_shape=X_train.shape).to(device)
 
 # %%
 num_epochs = 300
 num_samples = 7
 
 # %%
-optimizer = torch.optim.Adam([
-    {'params': model.parameters()},
-], lr=0.01)
+optimizer = torch.optim.Adam(
+    [
+        {"params": model.parameters()},
+    ],
+    lr=0.01,
+)
 mll = DeepApproximateMLL(VariationalELBO(model.likelihood, model, X_train.shape[-2]))
 
 epochs_iter = tqdm.tqdm(range(num_epochs), desc="Epoch")
@@ -227,7 +235,7 @@ for i in epochs_iter:
 
         coverage_error = gpytorch.metrics.quantile_coverage_error(observed_pred, y_test)
         print(f"coverage error: {coverage_error.mean().item()}")
-        
+
         model.train()
 
 # %%

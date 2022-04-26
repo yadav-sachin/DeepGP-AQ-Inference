@@ -7,14 +7,14 @@ import json
 from tqdm import tqdm
 import numpy as np
 import warnings
-warnings.filterwarnings('ignore')
 
-lr_list=[0.1, 0.05]
-epoch_list=[100, 250, 500]
-num_inducing_list=[40]
-kernel_list=['maternXrbf', 'matern32']
-fold_list=[0, 1, 2]
+warnings.filterwarnings("ignore")
 
+lr_list = [0.1, 0.05]
+epoch_list = [100, 250, 500]
+num_inducing_list = [40]
+kernel_list = ["maternXrbf", "matern32"]
+fold_list = [0, 1, 2]
 
 
 results_file = "results.jl"
@@ -23,7 +23,6 @@ base_path = os.path.dirname(__file__)
 
 class Config:
     n_processes_multiprocessing = 5
-
 
 
 def get_precision_values(metrics_output):
@@ -40,7 +39,7 @@ def get_results(params_dict):
         print(params_dict["iter_id"])
         print(script_command)
 
-        # return 
+        # return
 
         # Create Model Directory
         program_output = os.popen(script_command).read()

@@ -8,13 +8,22 @@ from sklearn.metrics import coverage_error
 from tqdm import tqdm
 import numpy as np
 import warnings
-warnings.filterwarnings('ignore')
 
-lr_list=[0.05,]
-epoch_list=[300,]
-num_inducing_list=[150,]
-samples_list = [7,]
-fold_list=[0, 1, 2]
+warnings.filterwarnings("ignore")
+
+lr_list = [
+    0.05,
+]
+epoch_list = [
+    300,
+]
+num_inducing_list = [
+    150,
+]
+samples_list = [
+    7,
+]
+fold_list = [0, 1, 2]
 
 # lr_list=[0.1]
 # epoch_list=[1,]
@@ -29,7 +38,6 @@ base_path = os.path.dirname(__file__)
 
 class Config:
     n_processes_multiprocessing = 5
-
 
 
 def get_precision_values(metrics_output):
@@ -47,7 +55,7 @@ def get_results(params_dict):
         print(params_dict["iter_id"])
         print(script_command)
 
-        # return 
+        # return
 
         # Create Model Directory
         program_output = os.popen(script_command).read()

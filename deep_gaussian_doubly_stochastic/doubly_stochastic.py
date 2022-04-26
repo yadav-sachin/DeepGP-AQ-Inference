@@ -28,64 +28,101 @@ import pandas as pd
 from scipy.io import loadmat
 import numpy as np
 from math import floor
+
+
 class Config:
     device = "cpu"
+
+
 device = torch.device(Config.device)
 
 # %%
-parser = argparse.ArgumentParser(description='Process some integers.')
-parser.add_argument('--num_inducing', type=int)
-parser.add_argument('--lr', type=float)
-parser.add_argument('--epochs', type=int)
-parser.add_argument('--fold', type=int)
-parser.add_argument('--samples', type=int)
+parser = argparse.ArgumentParser(description="Process some integers.")
+parser.add_argument("--num_inducing", type=int)
+parser.add_argument("--lr", type=float)
+parser.add_argument("--epochs", type=int)
+parser.add_argument("--fold", type=int)
+parser.add_argument("--samples", type=int)
 
 args = parser.parse_args()
 # %%
 class Config:
-    num_inducing=args.num_inducing
+    num_inducing = args.num_inducing
     fold = args.fold
-    lr=args.lr
+    lr = args.lr
     epochs = args.epochs
     num_samples = args.samples
+
 
 # %%
 from sklearn.preprocessing import StandardScaler
 import os
+
 script_dir = os.path.dirname(__file__)
 
-def return_data(fold,month,with_scaling, station_id = None):
-  train_input = pd.read_csv(script_dir + '/../data/beijing-18/time_feature/'+'/fold'+str(fold)+'/train_data_'+month+'_nsgp.csv.gz')
-  test_input = pd.read_csv(script_dir + '/../data/beijing-18/time_feature'+'/fold'+str(fold)+'/test_data_'+month+'_nsgp.csv.gz')
-  if station_id != None:
-    test_input = test_input[test_input['station_id'] == station_id]
-  #     test_input = test_input[test_input['station_id' == ]]
-  test_output = np.array(test_input['PM25_Concentration'])
-  train_output = np.array(train_input['PM25_Concentration'])
-  train_input= train_input.drop(['station_id','PM25_Concentration','time','filled'],axis=1)
-  try:
-    test_input= test_input.drop(['PM25_Concentration','station_id','time','filled'],axis=1)
-  except:
-    test_input= test_input.drop(['station_id','time','filled'],axis=1)
-  #     test_output= test_output.drop(['time'],axis=1)
-  if with_scaling:
-    scaler = StandardScaler().fit(train_input)
-    train_input = pd.DataFrame(scaler.transform(train_input),columns=list(train_input.columns))
-    test_input = pd.DataFrame(scaler.transform(test_input),columns=list(test_input.columns))
-  return train_input,train_output,test_input,test_output
+
+def return_data(fold, month, with_scaling, station_id=None):
+    train_input = pd.read_csv(
+        script_dir
+        + "/../data/beijing-18/time_feature/"
+        + "/fold"
+        + str(fold)
+        + "/train_data_"
+        + month
+        + "_nsgp.csv.gz"
+    )
+    test_input = pd.read_csv(
+        script_dir
+        + "/../data/beijing-18/time_feature"
+        + "/fold"
+        + str(fold)
+        + "/test_data_"
+        + month
+        + "_nsgp.csv.gz"
+    )
+    if station_id != None:
+        test_input = test_input[test_input["station_id"] == station_id]
+    #     test_input = test_input[test_input['station_id' == ]]
+    test_output = np.array(test_input["PM25_Concentration"])
+    train_output = np.array(train_input["PM25_Concentration"])
+    train_input = train_input.drop(
+        ["station_id", "PM25_Concentration", "time", "filled"], axis=1
+    )
+    try:
+        test_input = test_input.drop(
+            ["PM25_Concentration", "station_id", "time", "filled"], axis=1
+        )
+    except:
+        test_input = test_input.drop(["station_id", "time", "filled"], axis=1)
+    #     test_output= test_output.drop(['time'],axis=1)
+    if with_scaling:
+        scaler = StandardScaler().fit(train_input)
+        train_input = pd.DataFrame(
+            scaler.transform(train_input), columns=list(train_input.columns)
+        )
+        test_input = pd.DataFrame(
+            scaler.transform(test_input), columns=list(test_input.columns)
+        )
+    return train_input, train_output, test_input, test_output
 
 
 # %%
 for fold in [Config.fold]:
-  train_input,train_output,test_input,test_output = return_data(fold=fold,month='mar',with_scaling=True)
+    train_input, train_output, test_input, test_output = return_data(
+        fold=fold, month="mar", with_scaling=True
+    )
 
 from torch.utils.data import TensorDataset, DataLoader
-train_dataset = TensorDataset(torch.tensor(train_input.values).float().to(device), torch.tensor(train_output).float().to(device))
+
+train_dataset = TensorDataset(
+    torch.tensor(train_input.values).float().to(device),
+    torch.tensor(train_output).float().to(device),
+)
 train_loader = DataLoader(train_dataset, batch_size=1024, shuffle=True)
 
 # %%
 class ToyDeepGPHiddenLayer(deep_gps.DeepGPLayer):
-    def __init__(self, input_dims, output_dims, num_inducing=128, mean_type='constant'):
+    def __init__(self, input_dims, output_dims, num_inducing=128, mean_type="constant"):
         if output_dims is None:
             inducing_points = torch.randn(num_inducing, input_dims)
             batch_shape = torch.Size([])
@@ -94,34 +131,34 @@ class ToyDeepGPHiddenLayer(deep_gps.DeepGPLayer):
             batch_shape = torch.Size([output_dims])
 
         variational_distribution = CholeskyVariationalDistribution(
-            num_inducing_points=num_inducing,
-            batch_shape=batch_shape
+            num_inducing_points=num_inducing, batch_shape=batch_shape
         )
 
         variational_strategy = VariationalStrategy(
             self,
             inducing_points,
             variational_distribution,
-            learn_inducing_locations=True
+            learn_inducing_locations=True,
         )
 
-        super(ToyDeepGPHiddenLayer, self).__init__(variational_strategy, input_dims, output_dims)
+        super(ToyDeepGPHiddenLayer, self).__init__(
+            variational_strategy, input_dims, output_dims
+        )
 
-        if mean_type == 'constant':
+        if mean_type == "constant":
             self.mean_module = ConstantMean(batch_shape=batch_shape)
         else:
             self.mean_module = LinearMean(input_dims)
         self.covar_module = ScaleKernel(
             RBFKernel(batch_shape=batch_shape, ard_num_dims=input_dims),
-            batch_shape=batch_shape, ard_num_dims=None
+            batch_shape=batch_shape,
+            ard_num_dims=None,
         )
-
 
     def forward(self, x):
         mean_x = self.mean_module(x)
         covar_x = self.covar_module(x)
         return MultivariateNormal(mean_x, covar_x)
-
 
     def __call__(self, x, *other_inputs, **kwargs):
         """
@@ -134,13 +171,16 @@ class ToyDeepGPHiddenLayer(deep_gps.DeepGPLayer):
                 x = x.rsample()
 
             processed_inputs = [
-                inp.unsqueeze(0).expand(gpytorch.settings.num_likelihood_samples.value(), *inp.shape)
+                inp.unsqueeze(0).expand(
+                    gpytorch.settings.num_likelihood_samples.value(), *inp.shape
+                )
                 for inp in other_inputs
             ]
 
             x = torch.cat([x] + processed_inputs, dim=-1)
 
         return super().__call__(x, are_samples=bool(len(other_inputs)))
+
 
 # %%
 class DeepGP(deep_gps.DeepGP):
@@ -149,25 +189,23 @@ class DeepGP(deep_gps.DeepGP):
         hidden_layer = ToyDeepGPHiddenLayer(
             input_dims=train_x_shape[-1],
             output_dims=12,
-            mean_type='linear',
+            mean_type="linear",
             num_inducing=Config.num_inducing,
         )
 
         second_hidden_layer = ToyDeepGPHiddenLayer(
             input_dims=12,
             output_dims=4,
-            mean_type='linear',
+            mean_type="linear",
             num_inducing=Config.num_inducing,
         )
-
 
         last_layer = ToyDeepGPHiddenLayer(
             input_dims=second_hidden_layer.output_dims,
             output_dims=None,
-            mean_type='constant',
+            mean_type="constant",
             num_inducing=Config.num_inducing,
         )
-
 
         self.hidden_layer = hidden_layer
         self.second_hidden_layer = second_hidden_layer
@@ -189,12 +227,18 @@ class DeepGP(deep_gps.DeepGP):
 
 # %%
 # print(train_input.shape)
-model = DeepGP(train_x_shape = train_input.shape).to(device)
+model = DeepGP(train_x_shape=train_input.shape).to(device)
 num_epochs = Config.epochs
 num_samples = Config.num_samples
-optimizer = torch.optim.Adam([
-    {'params': model.parameters()},], lr=Config.lr)
-mll = DeepApproximateMLL(VariationalELBO(model.likelihood, model, train_input.shape[-2]))
+optimizer = torch.optim.Adam(
+    [
+        {"params": model.parameters()},
+    ],
+    lr=Config.lr,
+)
+mll = DeepApproximateMLL(
+    VariationalELBO(model.likelihood, model, train_input.shape[-2])
+)
 
 epochs_iter = tqdm.tqdm(range(num_epochs), desc="Epoch")
 train_losses = []
@@ -214,7 +258,9 @@ for i in epochs_iter:
             minibatch_iter.set_postfix(loss=loss.item())
 
 # %%
-test_dataset = TensorDataset(torch.tensor(test_input.values).float(), torch.tensor(test_output).float())
+test_dataset = TensorDataset(
+    torch.tensor(test_input.values).float(), torch.tensor(test_output).float()
+)
 test_loader = DataLoader(test_dataset, batch_size=1024, shuffle=True)
 import math
 
