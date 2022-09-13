@@ -12,7 +12,8 @@ from gpytorch.mlls import VariationalELBO, AddedLossTerm
 from gpytorch.likelihoods import GaussianLikelihood
 import argparse
 import matplotlib.pyplot as plt
-
+from probml_utils import latexify, savefig, is_latexify_enabled
+import seaborn as sns
 # %%
 from gpytorch.constraints.constraints import GreaterThan
 
@@ -41,7 +42,7 @@ class Config:
     num_inducing = 100
     fold = 1
     lr = 0.05
-    epochs = 500
+    epochs = 222
     num_samples = 7
 
 
@@ -248,7 +249,7 @@ for i in epochs_iter:
 
             minibatch_iter.set_postfix(loss=loss.item())
 
-    if i % 2 == 0:
+    if i%5 == 0:
         model.eval()
         test_dataset = TensorDataset(
             torch.tensor(test_input.values).float(), torch.tensor(test_output).float()
@@ -260,26 +261,33 @@ for i in epochs_iter:
         lower_line = preds_mean - 2 * preds_stds
         upper_line = preds_mean + 2 * preds_stds
 
+        os.environ["LATEXIFY"]="1"
+        os.environ["FIG_DIR"]="final_plots/"
+        latexify(width_scale_factor=1, fig_height=4)
         plt.rcParams["figure.dpi"] = 150
-        fig = plt.figure(figsize=(18, 8))
+        # fig = plt.figure(figsize=(18, 8))
         plt.fill_between(
             range(len(test_output)),
             lower_line,
             upper_line,
             facecolor="gray",
             alpha=0.5,
-            label=r"95% confidence",
+            label="95$\%$ confidence",
         )
-        plt.plot(preds_mean, label=r"predicted", linewidth=1.5)
+        plt.plot(preds_mean, label="predicted")
         y_test = test_output
-        plt.plot(test_output, label=r"actual", linewidth=1.5)
-        plt.ylabel("PM2.5")
+        plt.plot(test_output, label="actual")
+        plt.ylabel("PM$_{2.5}$")
         plt.legend()
         plt.xlabel("Timeline (March 2015)")
         plt.title(
             "Deep Gaussian Doubly Stochastic Variational Inference \n Station 1006"
         )
-        plt.savefig(f"deep_variational_station_1006_{i}.png")
+        
+        sns.despine()
+        savefig("deep_variational_station_1006")
+
+        # plt.savefig(f"deep_variational_station_1006_{i}.png")
         model.train()
 
 # %%
