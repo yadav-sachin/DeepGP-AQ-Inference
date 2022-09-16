@@ -218,8 +218,11 @@ class DeepGP(deep_gps.DeepGP):
 
 
 # %%
-# print(train_input.shape)
 model = DeepGP(train_x_shape=train_input.shape).to(device)
+# To load model:
+# state_dict = torch.load('model_epoch221.pth')
+# model = DeepGP(train_x_shape=train_input.shape).to(device)  # Create a new GP model
+# model.load_state_dict(state_dict)
 num_epochs = Config.epochs
 num_samples = Config.num_samples
 optimizer = torch.optim.Adam(
@@ -255,6 +258,7 @@ for i in epochs_iter:
             torch.tensor(test_input.values).float(), torch.tensor(test_output).float()
         )
         test_loader = DataLoader(test_dataset, batch_size=1024, shuffle=True)
+        torch.save(model.state_dict(), f'model_epoch{i}.pth')
         preds = model.predict(test_loader)
         preds_stds = torch.sqrt(preds.variance).T.mean(axis=1)
         preds_mean = preds.mean.T.mean(axis=1)
@@ -263,9 +267,7 @@ for i in epochs_iter:
 
         os.environ["LATEXIFY"]="1"
         os.environ["FIG_DIR"]="final_plots/"
-        latexify(width_scale_factor=1, fig_height=4)
-        plt.rcParams["figure.dpi"] = 150
-        # fig = plt.figure(figsize=(18, 8))
+        latexify(width_scale_factor=1.5, fig_height=2)
         plt.fill_between(
             range(len(test_output)),
             lower_line,
@@ -274,20 +276,16 @@ for i in epochs_iter:
             alpha=0.5,
             label="95$\%$ confidence",
         )
-        plt.plot(preds_mean, label="predicted")
+        plt.plot(preds_mean, label="Predicted")
         y_test = test_output
-        plt.plot(test_output, label="actual")
+        plt.plot(test_output, label="Ground Truth")
         plt.ylabel("PM$_{2.5}$")
         plt.legend()
-        plt.xlabel("Timeline (March 2015)")
-        plt.title(
-            "Deep Gaussian Doubly Stochastic Variational Inference \n Station 1006"
-        )
-        
+        plt.xlabel("Timeline, March 2015 (hours)")
         sns.despine()
-        savefig("deep_variational_station_1006")
+        savefig("deep_variational_station")
 
-        # plt.savefig(f"deep_variational_station_1006_{i}.png")
+        plt.savefig(f"deep_variational_station_1006_{i}.png")
         model.train()
 
 # %%
