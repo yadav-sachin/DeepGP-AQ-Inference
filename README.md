@@ -7,7 +7,7 @@ For any deep gaussian approach, open the respective folder. Add appropriate hype
 python run.py
 ```
 
-The test results would be stored in the respective folders `results.jl` file.
+The test results would be stored in the respective folder's `results.jl` file.
 
 
 ## Results:
